@@ -1,0 +1,19 @@
+apiVersion: k6.io/v1alpha1
+kind: K6
+metadata:
+  name: name_placeholder
+  namespace: namespace_placeholder
+spec:
+  parallelism: 4
+  separate: true
+  script:
+    configMap:
+      name: configmap_name_placeholder
+      file: main.js
+  arguments: --out experimental-prometheus-rw
+  runner:
+    env:
+      - name: K6_PROMETHEUS_RW_SERVER_URL
+        value: http://prometheus-kube-prometheus-prometheus.monitoring.svc:9090/api/v1/write
+      - name: K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM
+        value: "true"
